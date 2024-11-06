@@ -1,4 +1,5 @@
 using System;
+using App.Data;
 using TMPro;
 
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace App.UI
         public void SetTexts()
         {
             // TODO 파일데이터에서 값 가져오기
-            _gold.text = "";
+            _gold.text = PlayerDataManager.PlayerData.gold.ToString();
             _posion.text = "";
         }
 

@@ -1,7 +1,7 @@
 using System.Collections;
-
+using App.Data;
 using TMPro;
-
+using UGS;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,34 +12,43 @@ namespace App.UI
         [SerializeField] private Slider _capacitySlider;
         [SerializeField] private TextMeshProUGUI _boomText;
         
-        // TODO 일시정지 되면 코루틴 일시 중단하기
-        public float _time = 10.0f;
-
         public IEnumerator Capacity()
         {
+            int count = 0;
+            
             while (true)
             {
-                // TODO 가방 용량으로 크기 조절하기
-                _capacitySlider.value += Time.deltaTime;
-                if ( _capacitySlider.value >= 1 ) _capacitySlider.value = 0;
+                foreach (var ore in PlayerDataManager.Ore)
+                {
+                    count += ore.Value;
+                }
+                _capacitySlider.value = (float)count / PlayerDataManager.PlayerData.capacity;
+                
+                if (_capacitySlider.value >= 1)
+                {
+                    // TODO 폭탄 터지면 안됨
+                }
 
                 yield return null;
             }
         }
 
-        public IEnumerator BoomTimer()
+        public IEnumerator BoomTimer(ParticleSystem particleSystem)
         {
+            float time = (BoomManData.Define.DefineMap["Boom_Delay"].value * 10) / (9 + PlayerDataManager.PlayerData.boomSpeed + (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["boomSpeed"]].abilityAmount1 / 100));
+            float coolTIme = time;
             // TODO 시간 변경
             while (true)
             {
-                _boomText.text = _time.ToString("F1");
-                _time -= Time.deltaTime;
-                if (_time <= 0.0f)
+                _boomText.text = coolTIme.ToString("F1");
+                coolTIme -= Time.deltaTime;
+                if (coolTIme <= 0.0f)
                 {
                     // TODO 폭발 효과 및 등등
 
                     Debug.Log("Boom");
-                    _time = 10.0f;
+                    particleSystem.Play();
+                    coolTIme = time;
                 }
 
                 yield return null;

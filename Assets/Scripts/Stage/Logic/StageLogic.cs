@@ -1,7 +1,6 @@
+using System;
 using App.Player;
 using App.UI;
-
-using BoomManData;
 
 using UnityEngine;
 
@@ -12,42 +11,29 @@ namespace App.Logic
         [SerializeField] private BasicUI _basicUI;
         [SerializeField] private PlayerUI _playerUI;
         [SerializeField] private SettingUI _settingUI;
+        [SerializeField] private UpgradeUI _upgradeUI;
+
         [SerializeField] private PlayerMovement _playerMovement;
         
 
-        private void Awake()
+        private void OnEnable()
         {
             SetLiseners();
-            SetTexts();
-        }
-
-        private void Start()
-        {
-            StartPlayerUI();
-        }
-
-        private void SetTexts()
-        {
-            _basicUI.SetTexts();
         }
 
         private void SetLiseners()
         {
             _basicUI._settingListener = OpenSettingPopup;
-            _basicUI._upgradeListener = OnClickedUpgrade;
+            _basicUI._upgradeListener = OpenUpgradePopup;
 
             _settingUI._closeButtonListener = CloseSettingPopup;
+            _upgradeUI._closeButtonListener = CloseUpgradePopup;
         }
 
-        private void StartPlayerUI()
+        private void OpenUpgradePopup()
         {
-            StartCoroutine(_playerUI.BoomTimer());
-            StartCoroutine(_playerUI.Capacity());
-        }
-
-        private void OnClickedUpgrade()
-        {
-            // TODO 창 띄우기
+            _upgradeUI.OpenPopup();
+            _playerMovement.BlockMovement = true;
             Debug.Log("OnClickedUpgrade");
         }
 
@@ -60,8 +46,14 @@ namespace App.Logic
 
         private void CloseSettingPopup()
         {
-            _settingUI.ClosePopup();
             _playerMovement.BlockMovement = false;
+            _settingUI.ClosePopup();
+        }
+        
+        private void CloseUpgradePopup()
+        {
+            _playerMovement.BlockMovement = false;
+            _upgradeUI.ClosePopup();
         }
     }
 }

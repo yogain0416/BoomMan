@@ -20,7 +20,7 @@ namespace BoomManData
     public partial class Character : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Character> loadedList, Dictionary<int, Character> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<Character> loadedList, Dictionary<string, Character> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1moOpNCabnwK7lak6cYd8m-ssHOQ2B-Kxe732Vf3jknQ"; // it is file id
@@ -29,7 +29,7 @@ namespace BoomManData
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, Character> CharacterMap = new Dictionary<int, Character>();  
+        public static Dictionary<string, Character> CharacterMap = new Dictionary<string, Character>();  
         public static List<Character> CharacterList = new List<Character>();   
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace BoomManData
         /// Get Character Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, Character>  GetDictionary()
+        public static Dictionary<string, Character>  GetDictionary()
         {{
            if (isLoaded == false) Load();
            return CharacterMap;
@@ -56,15 +56,10 @@ namespace BoomManData
 
 /* Fields. */
 
-		public System.Int32 id;
+		public System.String id;
 		public System.String name;
-		public System.String key;
 		public System.String type;
 		public System.String resource;
-		public System.Single size;
-		public System.String collider;
-		public UnityEngine.Vector3 scale;
-		public UnityEngine.Vector3 range;
   
 
 #region fuctions
@@ -91,7 +86,7 @@ namespace BoomManData
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Character>, Dictionary<int, Character>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<Character>, Dictionary<string, Character>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -119,8 +114,8 @@ namespace BoomManData
                
 
 
-    public static (List<Character> list, Dictionary<int, Character> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, Character> Map = new Dictionary<int, Character>();
+    public static (List<Character> list, Dictionary<string, Character> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<string, Character> Map = new Dictionary<string, Character>();
             List<Character> List = new List<Character>();     
             TypeMap.Init();
             FieldInfo[] fields = typeof(Character).GetFields(BindingFlags.Public | BindingFlags.Instance);

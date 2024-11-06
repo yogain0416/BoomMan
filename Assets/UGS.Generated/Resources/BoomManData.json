@@ -1,0 +1,21 @@
+{
+  "jsonObject": {
+    "Character": {
+      "id : int": [ "10101", "20101", "20102", "20103", "20104", "20105", "20106", "30101", "30102" ],
+      "name : string": [ "플레이어_기본", "광물_레벨_1", "광물_레벨_2", "광물_레벨_3", "광물_레벨_4", "광물_레벨_5", "광물_레벨_6", "교환소", "연구소" ],
+      "key : string": [ "Name_Player_Common_01", "Name_Ore_Basic_01", "Name_Ore_Basic_02", "Name_Ore_Basic_03", "Name_Ore_Basic_04", "Name_Ore_Basic_05", "Name_Ore_Basic_06", "Name_Building_Bank_01", "Name_Building_Lab_01" ],
+      "type : string": [ "Player", "Ore", "Ore", "Ore", "Ore", "Ore", "Ore", "NPC", "NPC" ],
+      "resource : string": [ "Player_Common_01", "Ore_Basic_01", "Ore_Basic_02", "Ore_Basic_03", "Ore_Basic_04", "Ore_Basic_05", "Ore_Basic_06", "Building_Bank_01", "Building_Lab_01" ],
+      "size : float": [ "1", "1", "1", "1", "1", "1", "1", "1", "1" ],
+      "collider : string": [ "Capsule", "Capsule", "Capsule", "Capsule", "Capsule", "Capsule", "Capsule", "Box", "Box" ],
+      "scale : Vector3": [ "[2,0,1]", "[4,4,4]", "[4,4,4]", "[4,4,4]", "[4,4,4]", "[4,4,4]", "[8,4,4]", "[8,4,4]", "[8,4,4]" ],
+      "range : Vector3": [ "[2,0,1]", "[4,4,4]", "[4,4,4]", "[4,4,4]", "[4,4,4]", "[4,4,4]", "[8,4,4]", "[10, 5, 5]", "[10, 5, 5]" ]
+    }
+  },
+  "spreadSheetName": "BoomManData",
+  "spreadSheetID": "1moOpNCabnwK7lak6cYd8m-ssHOQ2B-Kxe732Vf3jknQ",
+  "sheetIDList": [ "0" ],
+  "tableTypes": [ 0 ],
+  "instruction": 1,
+  "error": null
+}

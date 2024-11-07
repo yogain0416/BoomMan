@@ -43,7 +43,7 @@ namespace App.Player
             {
                 Debug.Log("광석");
                 _playerUI.HasBoom = false;
-                var ore = other.gameObject.GetComponent<Ore>();
+                var ore = other.transform.parent.gameObject.GetComponent<Ore>();
                 float damage = PlayerDataManager.PlayerData.boomPower * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["boomPower"]].abilityAmount1 / 100);
                 Debug.Log($"Damage : {damage}");
                 ore.GetDamage(damage);

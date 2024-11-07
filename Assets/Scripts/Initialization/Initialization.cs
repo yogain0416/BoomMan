@@ -22,6 +22,8 @@ namespace App.Initialization
 
             // 로컬데이터 불러오기
             UnityGoogleSheet.LoadAllData();
+
+            // TODO 변경 필요
             SceneManager.LoadSceneAsync("Stage1");
             // StartCoroutine(CheckForUpdates());
         }
@@ -84,7 +86,8 @@ namespace App.Initialization
                 GenerateAsync<BoomManData.Character>(),
                 GenerateAsync<BoomManData.PlayerStatus>(),
                 GenerateAsync<BoomManData.OreStatus>(),
-                GenerateAsync<BoomManData.Upgrade>()
+                GenerateAsync<BoomManData.Upgrade>(),
+                GenerateAsync<Localization.Data>()
             };
 
             // 모든 Task들이 완료될 때까지 대기

@@ -12,6 +12,9 @@ namespace App.UI
         [SerializeField] private Slider _capacitySlider;
         [SerializeField] private TextMeshProUGUI _boomText;
         [SerializeField] private TextMeshProUGUI _capacityText;
+        [SerializeField] private Image _capacityFillImage;
+        [SerializeField] private Sprite _baseCapacitySprite;
+        [SerializeField] private Sprite _fullCapacitySprite;
 
         private WaitForSeconds _sleepTime = new WaitForSeconds(0.1f);
         private bool _isStopBoom = false;
@@ -47,7 +50,11 @@ namespace App.UI
                 if (count >= PlayerDataManager.PlayerData.capacity) count = PlayerDataManager.PlayerData.capacity;
                 _capacitySlider.value = (float)count / PlayerDataManager.PlayerData.capacity;
 
-                if (_capacitySlider.value >= 1) _isStopBoom = true;
+                if (_capacitySlider.value >= 1)
+                {
+                    _capacityFillImage.sprite = _fullCapacitySprite;
+                    _isStopBoom = true;
+                }
                 else _isStopBoom = false;
 
                 yield return null;

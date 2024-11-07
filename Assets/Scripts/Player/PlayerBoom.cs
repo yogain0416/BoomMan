@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using App.Data;
 using App.UI;
-using TMPro;
+using App.Data;
+
+using System.Collections;
+
 using UnityEngine;
 
 namespace App.Player
@@ -18,11 +18,38 @@ namespace App.Player
             // PlayerDataManager가 완전히 로드될 때까지 대기
             yield return new WaitUntil(() => PlayerDataManager.IsDataLoaded);
             
-            // TODO
-            // 파일에 있는 값 가져오기
-            StartCoroutine(_playerUI.BoomTimer(_particleSystem));
-            _rangeUI.SetRange(PlayerDataManager.PlayerData.boomRange);
+            StartCoroutine(_playerUI.Boom(_particleSystem));
+            StartCoroutine(_playerUI.Capacity());
+            SetBoomRange();
         }
+
+        private void SetBoomRange()
+        {
+            float range = PlayerDataManager.PlayerData.boomRange * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["boomRange"]].abilityAmount1 / 100);
+            _rangeUI.SetRange(range);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "NPC")
+            {
+                // TODO 연구소 띄우기
+            }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject.tag == "Ore" && _playerUI.HasBoom)
+            {
+                Debug.Log("광석");
+                _playerUI.HasBoom = false;
+                var ore = other.gameObject.GetComponent<Ore>();
+                float damage = PlayerDataManager.PlayerData.boomPower * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["boomPower"]].abilityAmount1 / 100);
+                Debug.Log($"Damage : {damage}");
+                ore.GetDamage(damage);
+            }
+        }
+
     }
 }
 

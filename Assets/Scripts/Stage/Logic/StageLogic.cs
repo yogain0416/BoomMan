@@ -16,7 +16,7 @@ namespace App.Logic
         [SerializeField] private PlayerMovement _playerMovement;
         
 
-        private void OnEnable()
+        private void Awake()
         {
             SetLiseners();
         }
@@ -33,26 +33,26 @@ namespace App.Logic
         private void OpenUpgradePopup()
         {
             _upgradeUI.OpenPopup();
-            _playerMovement.BlockMovement = true;
+            // _playerMovement.BlockMovement = true;
             Debug.Log("OnClickedUpgrade");
         }
 
         private void OpenSettingPopup()
         {
             _settingUI.OpenPopup();
-            _playerMovement.BlockMovement = true;
+            // _playerMovement.BlockMovement = true;
             Debug.Log("OnClickedSettings");
         }
 
         private void CloseSettingPopup()
         {
-            _playerMovement.BlockMovement = false;
+            // _playerMovement.BlockMovement = false;
             _settingUI.ClosePopup();
         }
         
         private void CloseUpgradePopup()
         {
-            _playerMovement.BlockMovement = false;
+            // _playerMovement.BlockMovement = false;
             _upgradeUI.ClosePopup();
         }
     }

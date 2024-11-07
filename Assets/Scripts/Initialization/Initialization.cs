@@ -22,8 +22,8 @@ namespace App.Initialization
 
             // 로컬데이터 불러오기
             UnityGoogleSheet.LoadAllData();
-
-            StartCoroutine(CheckForUpdates());
+            SceneManager.LoadSceneAsync("Stage1");
+            // StartCoroutine(CheckForUpdates());
         }
 
         private IEnumerator CheckForUpdates()

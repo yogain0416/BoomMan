@@ -17,18 +17,27 @@ namespace App.Data
 
         public static PlayerData PlayerData => _playerData;
         public static bool IsDataLoaded { get; private set; } = false; // 데이터 로드 완료 상태 플래그
-        public static Dictionary<string, int> Ore = new()
-        { 
-            // TODO 하드코딩 수정필요
-            { BoomManData.OreStatus.OreStatusList[0].id, 0 },
-            { BoomManData.OreStatus.OreStatusList[1].id, 0 },
-            { BoomManData.OreStatus.OreStatusList[2].id, 0 },
-            { BoomManData.OreStatus.OreStatusList[3].id, 0 }
-        };
+        public static Dictionary<string, int> Ore = new Dictionary<string, int>();
+
+        private void InitializeOreDictionary()
+        {
+            if (BoomManData.OreStatus.OreStatusList != null)
+            {
+                foreach (var oreStatus in BoomManData.OreStatus.OreStatusList)
+                {
+                    Ore[oreStatus.id] = 0;
+                }
+            }
+            else
+            {
+                Debug.LogError("OreStatusList가 초기화되지 않았습니다.");
+            }
+        }
 
         private async void Awake()
         {
             await LoadPlayerData();
+            InitializeOreDictionary(); // Ore 딕셔너리 초기화
             IsDataLoaded = true; // 데이터 로드 완료 설정
             Debug.Log("PlayerData가 로드된 후 다음 작업을 수행합니다.");
 

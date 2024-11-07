@@ -2,6 +2,7 @@ using App.UI;
 using App.Data;
 
 using UnityEngine;
+using System.Collections;
 
 namespace App.Player
 {
@@ -9,6 +10,7 @@ namespace App.Player
     {
         [SerializeField] private OreData _data;
         [SerializeField] private OreUI _oreUI;
+        [SerializeField] private PlayerUI _playerUI;
 
         [SerializeField] private GameObject _oreBase;
         [SerializeField] private GameObject _oreBreak1;
@@ -19,7 +21,8 @@ namespace App.Player
         [SerializeField] private float _maxHp;
         private float _hp;
         private float _sumDamage;
-        
+        private bool _isAttacked;
+
         public float Hp { get { return _hp; } set { _hp = value; } }
 
         private void Start()
@@ -30,7 +33,7 @@ namespace App.Player
             SetOreActive();
         }
 
-        public void GetDamage(float damage)
+        private void GetDamage(float damage)
         {
             Hp -= damage;
             
@@ -104,6 +107,26 @@ namespace App.Player
             }
 
             return count;
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject.tag == "Boom" && _playerUI.HasBoom && _isAttacked == false)
+            {
+                _isAttacked = true;
+                Debug.Log("광석 : " + gameObject.name);
+                float damage = PlayerDataManager.PlayerData.boomPower * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["boomPower"]].abilityAmount1 / 100);
+                Debug.Log($"Damage : {damage}");
+                GetDamage(damage);
+                StartCoroutine(CoDelay());
+            }
+        }
+
+        private IEnumerator CoDelay()
+        {
+            yield return _playerUI._sleepTime;
+
+            _isAttacked = false;
         }
     }
 }

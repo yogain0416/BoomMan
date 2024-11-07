@@ -16,7 +16,7 @@ namespace App.UI
 
         public void SetTexts()
         {
-            // TODO 파일데이터에서 값 가져오기
+            // TODO
             _gold.text = PlayerDataManager.PlayerData.gold.ToString();
             _posion.text = "";
         }

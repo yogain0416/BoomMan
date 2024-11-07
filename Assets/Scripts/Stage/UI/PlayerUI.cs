@@ -16,7 +16,7 @@ namespace App.UI
         [SerializeField] private Sprite _baseCapacitySprite;
         [SerializeField] private Sprite _fullCapacitySprite;
 
-        private WaitForSeconds _sleepTime = new WaitForSeconds(0.1f);
+        public WaitForSeconds _sleepTime = new WaitForSeconds(0.1f);
         private bool _isStopBoom = false;
         public bool IsStopBoom { get { return _isStopBoom; } set { _isStopBoom = value; } }
         private bool _hasBoom = false;
@@ -55,7 +55,11 @@ namespace App.UI
                     _capacityFillImage.sprite = _fullCapacitySprite;
                     _isStopBoom = true;
                 }
-                else _isStopBoom = false;
+                else
+                {
+                    _capacityFillImage.sprite = _baseCapacitySprite;
+                    _isStopBoom = false;
+                }
 
                 yield return null;
             }

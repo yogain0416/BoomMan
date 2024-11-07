@@ -110,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 7797684139621573204}
   _playerUI: {fileID: 7338056308165888040}
+  _basicUI: {fileID: 0}
   _rangeUI: {fileID: 1034673708492242343}
 --- !u!114 &5035338911713521914
 MonoBehaviour:
@@ -326,10 +327,6 @@ PrefabInstance:
     - target: {fileID: 387507956080765387, guid: c9ac21c13f68258448af74626254e50f, type: 3}
       propertyPath: m_Name
       value: BoomRangeUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 6380218360739776502, guid: c9ac21c13f68258448af74626254e50f, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7228520937487146066, guid: c9ac21c13f68258448af74626254e50f, type: 3}
       propertyPath: m_Pivot.x

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using App.Data;
 using App.Player;
 using App.UI;
 
@@ -16,9 +18,17 @@ namespace App.Logic
         [SerializeField] private PlayerMovement _playerMovement;
         
 
-        private void Awake()
+        private IEnumerator Start()
         {
+            yield return new WaitUntil(() => PlayerDataManager.IsDataLoaded);
+            
             SetLiseners();
+            SetTexts();
+        }
+
+        private void SetTexts()
+        {
+            _basicUI.SetTexts();
         }
 
         private void SetLiseners()

@@ -17,7 +17,7 @@ namespace App.Player
         {
             // PlayerDataManager가 완전히 로드될 때까지 대기
             yield return new WaitUntil(() => PlayerDataManager.IsDataLoaded);
-            
+
             StartCoroutine(_playerUI.Boom(_particleSystem));
             StartCoroutine(_playerUI.Capacity());
             SetBoomRange();
@@ -28,28 +28,6 @@ namespace App.Player
             float range = PlayerDataManager.PlayerData.boomRange * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["boomRange"]].abilityAmount1 / 100);
             _rangeUI.SetRange(range);
         }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.tag == "NPC")
-            {
-                // TODO 연구소 띄우기
-            }
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.gameObject.tag == "Ore" && _playerUI.HasBoom)
-            {
-                Debug.Log("광석");
-                _playerUI.HasBoom = false;
-                var ore = other.transform.parent.gameObject.GetComponent<Ore>();
-                float damage = PlayerDataManager.PlayerData.boomPower * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["boomPower"]].abilityAmount1 / 100);
-                Debug.Log($"Damage : {damage}");
-                ore.GetDamage(damage);
-            }
-        }
-
     }
 }
 

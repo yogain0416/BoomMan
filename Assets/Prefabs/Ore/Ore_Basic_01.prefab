@@ -369,6 +369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: 121df623c0d65844f871688c92d03587, type: 2}
   _oreUI: {fileID: 1563630017609022152}
+  _playerUI: {fileID: 0}
   _oreBase: {fileID: 3302779882522542902}
   _oreBreak1: {fileID: 901095989248252842}
   _oreBreak2: {fileID: 3425740389652149913}

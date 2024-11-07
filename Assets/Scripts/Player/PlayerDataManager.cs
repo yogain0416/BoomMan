@@ -54,31 +54,37 @@ namespace App.Data
             {
                 // 파일이 존재할 경우 JSON에서 데이터를 비동기로 읽음
                 string jsonData = await File.ReadAllTextAsync(filePath);
-                _playerData = JsonConvert.DeserializeObject<PlayerData>(jsonData); // Newtonsoft.Json 사용
+                if (jsonData.Equals("null")) await InitPlayerData();
+                else _playerData = JsonConvert.DeserializeObject<PlayerData>(jsonData); // Newtonsoft.Json 사용
                 Debug.Log("PlayerData 로드 완료");
             }
             else
             {
-                // 파일이 없을 경우 기본값으로 초기화하고 저장
-                _playerData = new PlayerData
-                {
-                    boomRange = BoomManData.PlayerStatus.PlayerStatusList[0].boomRange,
-                    boomPower = BoomManData.PlayerStatus.PlayerStatusList[0].boomPower,
-                    boomValue = BoomManData.PlayerStatus.PlayerStatusList[0].boomValue,
-                    boomSpeed = BoomManData.PlayerStatus.PlayerStatusList[0].boomSpeed,
-                    speed = BoomManData.PlayerStatus.PlayerStatusList[0].speed,
-                    capacity = BoomManData.PlayerStatus.PlayerStatusList[0].capacity,
-                    gold = 0,
-                    upgradeId = new()
+                await InitPlayerData();
+            }
+        }
+
+        private async Task InitPlayerData()
+        {
+            // 파일이 없을 경우 기본값으로 초기화하고 저장
+            _playerData = new PlayerData
+            {
+                boomRange = BoomManData.PlayerStatus.PlayerStatusList[0].boomRange,
+                boomPower = BoomManData.PlayerStatus.PlayerStatusList[0].boomPower,
+                boomValue = BoomManData.PlayerStatus.PlayerStatusList[0].boomValue,
+                boomSpeed = BoomManData.PlayerStatus.PlayerStatusList[0].boomSpeed,
+                speed = BoomManData.PlayerStatus.PlayerStatusList[0].speed,
+                capacity = BoomManData.PlayerStatus.PlayerStatusList[0].capacity,
+                gold = 0,
+                upgradeId = new()
                     {
                         { "boomRange", "40101" }, { "boomPower", "40201" }, { "boomSpeed", "40301" },
                         { "capacity", "40401" }, { "moveSpeed", "40501" }
                     }
-                };
+            };
 
-                await SavePlayerDataAsync(); // 비동기로 저장
-                Debug.Log("PlayerData 기본값으로 초기화 및 저장");
-            }
+            await SavePlayerDataAsync(); // 비동기로 저장
+            Debug.Log("PlayerData 기본값으로 초기화 및 저장");
         }
 
         private async Task SavePlayerDataAsync()

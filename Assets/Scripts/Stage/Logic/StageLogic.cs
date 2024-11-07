@@ -1,8 +1,9 @@
-using System;
 using System.Collections;
+using System.Collections.Generic;
+
+using App.UI;
 using App.Data;
 using App.Player;
-using App.UI;
 
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace App.Logic
         [SerializeField] private PlayerUI _playerUI;
         [SerializeField] private SettingUI _settingUI;
         [SerializeField] private UpgradeUI _upgradeUI;
+        [SerializeField] private List<UpgradeElementUI> _upgradeElementsUI;
 
         [SerializeField] private PlayerMovement _playerMovement;
         
@@ -45,6 +47,17 @@ namespace App.Logic
             _upgradeUI.OpenPopup();
             // _playerMovement.BlockMovement = true;
             Debug.Log("OnClickedUpgrade");
+            SetContents();
+        }
+
+        // TODO 하드코딩 변경 필요
+        private void SetContents()
+        {
+            _upgradeElementsUI[0].SetContent("boomRange", PlayerDataManager.PlayerData.boomRange);
+            _upgradeElementsUI[1].SetContent("boomPower", PlayerDataManager.PlayerData.boomPower);
+            _upgradeElementsUI[2].SetContent("boomSpeed", PlayerDataManager.PlayerData.boomSpeed);
+            _upgradeElementsUI[3].SetContent("capacity", PlayerDataManager.PlayerData.capacity);
+            _upgradeElementsUI[4].SetContent("moveSpeed", PlayerDataManager.PlayerData.speed);
         }
 
         private void OpenSettingPopup()

@@ -16,6 +16,8 @@ namespace App.UI
         [SerializeField] private Sprite _baseCapacitySprite;
         [SerializeField] private Sprite _fullCapacitySprite;
 
+
+        private int _fullCapacity;
         public WaitForSeconds _sleepTime = new WaitForSeconds(0.1f);
         private bool _isStopBoom = false;
         public bool IsStopBoom { get { return _isStopBoom; } set { _isStopBoom = value; } }
@@ -24,7 +26,7 @@ namespace App.UI
 
         private void SetCapacityText()
         {
-            _capacityText.text = GetCountOre() + "/" + PlayerDataManager.PlayerData.capacity;
+            _capacityText.text = GetCountOre() + "/" + _fullCapacity;
         }
 
         private int GetCountOre()
@@ -43,12 +45,13 @@ namespace App.UI
         {
             while (true)
             {
-                SetCapacityText();
+                _fullCapacity = (int)(PlayerDataManager.PlayerData.capacity * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["capacity"]].abilityAmount1 / 100));
 
+                SetCapacityText();
                 int count = GetCountOre();
 
-                if (count >= PlayerDataManager.PlayerData.capacity) count = PlayerDataManager.PlayerData.capacity;
-                _capacitySlider.value = (float)count / PlayerDataManager.PlayerData.capacity;
+                if (count >= PlayerDataManager.PlayerData.capacity) count = _fullCapacity;
+                _capacitySlider.value = (float)count / _fullCapacity;
 
                 if (_capacitySlider.value >= 1)
                 {

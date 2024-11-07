@@ -23,7 +23,7 @@ namespace App.Player
             SetBoomRange();
         }
 
-        private void SetBoomRange()
+        public void SetBoomRange()
         {
             float range = PlayerDataManager.PlayerData.boomRange * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["boomRange"]].abilityAmount1 / 100);
             _rangeUI.SetRange(range);

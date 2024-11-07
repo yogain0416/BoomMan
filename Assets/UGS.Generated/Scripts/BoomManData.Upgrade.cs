@@ -69,6 +69,7 @@ namespace BoomManData
 		public System.String abilityType2;
 		public System.Single abilityAmount2;
 		public System.String abilityIcon;
+		public System.String nextLevelId;
   
 
 #region fuctions

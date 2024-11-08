@@ -2,7 +2,10 @@ using App.UI;
 using App.Data;
 
 using UnityEngine;
+
 using System.Collections;
+using System.Collections.Generic;
+using App.Initialization;
 
 namespace App.Player
 {
@@ -11,6 +14,7 @@ namespace App.Player
         [SerializeField] private OreData _data;
         [SerializeField] private OreUI _oreUI;
         [SerializeField] private PlayerUI _playerUI;
+        [SerializeField] private BasicUI _basicUI;
 
         [SerializeField] private GameObject _oreBase;
         [SerializeField] private GameObject _oreBreak1;
@@ -19,10 +23,13 @@ namespace App.Player
         [SerializeField] private Material _material;
         
         [SerializeField] private float _maxHp;
+        
+        [SerializeField] public string ID;
+
         private float _hp;
         private float _sumDamage;
         private bool _isAttacked;
-
+        private IEnumerator _delayHandler = null;
         public float Hp { get { return _hp; } set { _hp = value; } }
 
         private void Start()
@@ -43,7 +50,10 @@ namespace App.Player
             if (Hp <= 0)
             {
                 Hp = 0;
-                Destroy(this.gameObject);
+                SaveOreAsDestroyed();
+                if (_delayHandler != null) StopCoroutine(_delayHandler);
+                gameObject.SetActive(false); // 비활성화
+                return;
             }
 
             // 광물 상태를 위한 비율
@@ -79,10 +89,13 @@ namespace App.Player
         private void GetOre(float damage)
         {
             _sumDamage += damage;
+            
             // Hp를 뚫은 데미지는 다시 빼준다
             if (Hp <= 0) _sumDamage += Hp;
 
             float result = _sumDamage / _data.oreResourceRate;
+
+            // 광물 획득
             if (result >= 1)
             {               
                 int oreCount = GetCountOre();
@@ -95,6 +108,8 @@ namespace App.Player
                     PlayerDataManager.Ore[_data.id] += remainCapacity;
 
                 _sumDamage %= _data.oreResourceRate;
+                SoundManager.Instance.Play("Sounds/CM_get_ore", SoundManager.SoundType.OreCollected);
+                _basicUI.SetTexts();
             }
         }
 
@@ -117,8 +132,9 @@ namespace App.Player
                 Debug.Log("광석 : " + gameObject.name);
                 float damage = PlayerDataManager.PlayerData.boomPower * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["boomPower"]].abilityAmount1 / 100);
                 Debug.Log($"Damage : {damage}");
+                if (_delayHandler != null) StopCoroutine( _delayHandler );
+                StartCoroutine(_delayHandler = CoDelay());
                 GetDamage(damage);
-                StartCoroutine(CoDelay());
             }
         }
 
@@ -127,6 +143,31 @@ namespace App.Player
             yield return _playerUI._sleepTime;
 
             _isAttacked = false;
+        }
+
+        private void SaveOreAsDestroyed()
+        {
+            // 기존 삭제된 광물 목록을 불러옴
+            List<string> destroyedOres = LoadDestroyedOres();
+
+            // 현재 광물 ID 추가
+            if (!destroyedOres.Contains(ID))
+            {
+                destroyedOres.Add(ID);
+            }
+
+            // PlayerPrefs에 다시 저장
+            PlayerPrefs.SetString("DestroyedOres", string.Join(",", destroyedOres));
+            PlayerPrefs.Save();
+        }
+
+        // 삭제된 광물 목록을 불러오는 함수
+        private List<string> LoadDestroyedOres()
+        {
+            string savedData = PlayerPrefs.GetString("DestroyedOres", "");
+            if (string.IsNullOrEmpty(savedData)) return new List<string>();
+
+            return new List<string>(savedData.Split(','));
         }
     }
 }

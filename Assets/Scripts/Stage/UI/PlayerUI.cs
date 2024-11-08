@@ -1,9 +1,12 @@
-using System.Collections;
 using App.Data;
+using App.Initialization;
+
 using TMPro;
-using UGS;
+
 using UnityEngine;
 using UnityEngine.UI;
+
+using System.Collections;
 
 namespace App.UI
 {
@@ -43,6 +46,8 @@ namespace App.UI
         // TODO 광석
         public IEnumerator Capacity()
         {
+            SoundManager.Instance.Play("Sounds/CM_timer", SoundManager.SoundType.PlayerTimer, 0.3f);
+
             while (true)
             {
                 _fullCapacity = (int)(PlayerDataManager.PlayerData.capacity * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["capacity"]].abilityAmount1 / 100));
@@ -57,11 +62,13 @@ namespace App.UI
                 {
                     _capacityFillImage.sprite = _fullCapacitySprite;
                     _isStopBoom = true;
+                    SoundManager.Instance.Stop(SoundManager.SoundType.PlayerTimer);
                 }
                 else
                 {
                     _capacityFillImage.sprite = _baseCapacitySprite;
                     _isStopBoom = false;
+                    SoundManager.Instance.Play("Sounds/CM_timer", SoundManager.SoundType.PlayerTimer, 0.3f);
                 }
 
                 yield return null;
@@ -72,7 +79,8 @@ namespace App.UI
         {
             float time = (BoomManData.Define.DefineMap["Boom_Delay"].value * 10) / (9 + PlayerDataManager.PlayerData.boomSpeed + (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["boomSpeed"]].abilityAmount1 / 100));
             float coolTime = time;
-            
+            SoundManager.Instance.Play("Sounds/CC_boom", SoundManager.SoundType.PlayerBoom);
+
             while (true)
             {
                 if (_isStopBoom)
@@ -88,6 +96,7 @@ namespace App.UI
                     // TODO 폭발 효과 및 등등
                     Debug.Log("Boom");
                     _hasBoom = true;
+                    SoundManager.Instance.Play("Sounds/CC_boom", SoundManager.SoundType.PlayerBoom);
                     particleSystem.Play();
                     yield return _sleepTime;
                     _hasBoom = false;

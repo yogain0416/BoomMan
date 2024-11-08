@@ -6,6 +6,7 @@ using App.Data;
 using App.Player;
 
 using UnityEngine;
+using App.Initialization;
 
 namespace App.Logic
 {
@@ -23,7 +24,7 @@ namespace App.Logic
         private IEnumerator Start()
         {
             yield return new WaitUntil(() => PlayerDataManager.IsDataLoaded);
-            
+            SoundManager.Instance.Play("Sounds/CM_bgm", SoundManager.SoundType.BGM);
             SetLiseners();
             SetTexts();
         }

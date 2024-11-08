@@ -2,10 +2,11 @@ using TMPro;
 
 using UnityEngine;
 
-using App.Initialization;
 using App.Data;
-using UnityEngine.UI;
 using App.Player;
+using App.Initialization;
+
+using UnityEngine.UI;
 
 namespace App.UI
 {
@@ -44,9 +45,9 @@ namespace App.UI
             _titleText.text = LanguageManager.Instance.GetString(_data.upgradeTitleKey);
             if (isMax)
             {
-                // TODO 하드코딩 개선
-                _descText.text = "MAX LEVEL";
-                _buttonText.text = "MAX";
+                // TODO 하드코딩 개선 upgrade 테이블 수정필요
+                _descText.text = LanguageManager.Instance.GetString("Str_Price_Max_Desc");
+                _buttonText.text = LanguageManager.Instance.GetString("Str_Price_Max"); ;
             }
             else
             {
@@ -86,6 +87,7 @@ namespace App.UI
             if (_key.Equals("boomRange")) _playerBoom.SetBoomRange();
 
             // 업그레이드 UI 갱신
+            SoundManager.Instance.Play("Sounds/CM_upgrade", SoundManager.SoundType.Effect);
             SetContent(_key, _value);
         }
     }

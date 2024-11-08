@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5771309558210698429}
   - component: {fileID: 8502280357538889843}
   - component: {fileID: 5035338911713521914}
+  - component: {fileID: 1492940361824227454}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -110,7 +111,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 7797684139621573204}
   _playerUI: {fileID: 7338056308165888040}
-  _basicUI: {fileID: 0}
   _rangeUI: {fileID: 1034673708492242343}
 --- !u!114 &5035338911713521914
 MonoBehaviour:
@@ -124,6 +124,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a4ceea13baff04693a2602a98ae2ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1492940361824227454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8625734014999403867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abfb88a32bd146249af37ad3b9f0d62f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _overlayCanvas: {fileID: 0}
+  _oreFragmentPrefab: {fileID: 8549480896158872524, guid: 2702bc5064209894c8a2980ee0657acc, type: 3}
+  _oreLevel1: {fileID: 21300000, guid: e2b34732066feaa469205cbf2de8adbd, type: 3}
+  _oreLevel2: {fileID: 21300000, guid: a3a0f89ec51c81f44a3f87ca233c4ea4, type: 3}
+  _oreLevel3: {fileID: 21300000, guid: 834a27243b8896a4a81d49a0698520f2, type: 3}
+  _oreLevel4: {fileID: 21300000, guid: d9105df3ab9496b48a5031aa8b207007, type: 3}
 --- !u!1001 &113329900496532455
 PrefabInstance:
   m_ObjectHideFlags: 0

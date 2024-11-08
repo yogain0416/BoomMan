@@ -99,13 +99,19 @@ namespace App.Player
             if (result >= 1)
             {               
                 int oreCount = GetCountOre();
-                if (oreCount >= PlayerDataManager.PlayerData.capacity) return;
+                if (oreCount >= (int)(PlayerDataManager.PlayerData.capacity * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["capacity"]].abilityAmount1 / 100))) return;
 
-                int remainCapacity = PlayerDataManager.PlayerData.capacity - oreCount;
+                int remainCapacity = (int)(PlayerDataManager.PlayerData.capacity * (1 + BoomManData.Upgrade.UpgradeMap[PlayerDataManager.PlayerData.upgradeId["capacity"]].abilityAmount1 / 100)) - oreCount;
                 if (remainCapacity >= (int)result)
+                {
+                    OreRewardManager.Instance.ShowOreFragment(transform.position, _data.id, (int)result);
                     PlayerDataManager.Ore[_data.id] += (int)result;
+                }
                 else
+                {
+                    OreRewardManager.Instance.ShowOreFragment(transform.position, _data.id, remainCapacity);
                     PlayerDataManager.Ore[_data.id] += remainCapacity;
+                }
 
                 _sumDamage %= _data.oreResourceRate;
                 SoundManager.Instance.Play("Sounds/CM_get_ore", SoundManager.SoundType.OreCollected);

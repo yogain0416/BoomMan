@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2763115082683501137}
   - component: {fileID: 3889068019872341180}
   - component: {fileID: 4836251988082013046}
+  - component: {fileID: 2235165241502264809}
   m_Layer: 0
   m_Name: Bank
   m_TagString: Bank
@@ -128,3 +129,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.6505585, y: 2, z: 5.493243}
   m_Center: {x: 0.17152452, y: 1, z: 0.46516705}
+--- !u!114 &2235165241502264809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4420409439554661252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 690fca2f54892fb418e6554ae6136fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _basicUI: {fileID: 0}

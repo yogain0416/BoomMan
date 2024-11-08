@@ -370,11 +370,13 @@ MonoBehaviour:
   _data: {fileID: 11400000, guid: 121df623c0d65844f871688c92d03587, type: 2}
   _oreUI: {fileID: 1563630017609022152}
   _playerUI: {fileID: 0}
+  _basicUI: {fileID: 0}
   _oreBase: {fileID: 3302779882522542902}
   _oreBreak1: {fileID: 901095989248252842}
   _oreBreak2: {fileID: 3425740389652149913}
   _material: {fileID: 2100000, guid: 72a693d368cfc75458fbc61ceca6be72, type: 2}
   _maxHp: 30
+  ID: 
 --- !u!54 &8764754035320226614
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -480,7 +482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6861799407106883590, guid: 34f182bf8f784d34c876b0f1ea5cf3e0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.8
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6861799407106883590, guid: 34f182bf8f784d34c876b0f1ea5cf3e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

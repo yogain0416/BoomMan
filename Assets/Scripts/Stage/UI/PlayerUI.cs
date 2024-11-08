@@ -55,7 +55,7 @@ namespace App.UI
                 SetCapacityText();
                 int count = GetCountOre();
 
-                if (count >= PlayerDataManager.PlayerData.capacity) count = _fullCapacity;
+                if (count >= _fullCapacity) count = _fullCapacity;
                 _capacitySlider.value = (float)count / _fullCapacity;
 
                 if (_capacitySlider.value >= 1)

@@ -48,11 +48,14 @@ namespace App.Data
         {
             // WebGL용으로 PlayerPrefs에서 데이터를 불러옴
             string jsonString = PlayerPrefs.GetString(PlayerDataFileName, ""); // WebGL에서 데이터 로드 방식 변경
-                                                                             // JSON 문자열을 객체로 변환 후 다시 포맷팅하여 출력
-            var jsonObject = JsonConvert.DeserializeObject(jsonString);
-            string formattedJson = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
-            if (!string.IsNullOrEmpty(formattedJson))
+            Debug.Log("jsonString" + jsonString);                          // JSON 문자열을 객체로 변환 후 다시 포맷팅하여 출력
+            
+            if (!string.IsNullOrEmpty(jsonString))
             {
+                var jsonObject = JsonConvert.DeserializeObject(jsonString);
+                Debug.Log("jsonObject" + jsonObject.ToString());
+                string formattedJson = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
+                Debug.Log("formattedJson" + formattedJson);
                 if (formattedJson.Equals("null")) await InitPlayerData();
                 else _playerData = JsonConvert.DeserializeObject<PlayerData>(formattedJson); // Newtonsoft.Json 사용
                 Debug.Log("PlayerData 로드 완료");
